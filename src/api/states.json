@@ -1,0 +1,134 @@
+{
+  "data": {
+    "allStates": [
+      {
+        "id": "4501653",
+        "name": "Tabasco"
+      },
+      {
+        "id": "4501644",
+        "name": "Estado de Mexico"
+      },
+      {
+        "id": "4501642",
+        "name": "Colima"
+      },
+      {
+        "id": "4501641",
+        "name": "Campeche"
+      },
+      {
+        "id": "4501637",
+        "name": "Veracruz"
+      },
+      {
+        "id": "4501636",
+        "name": "Chihuahua"
+      },
+      {
+        "id": "4501633",
+        "name": "Durango"
+      },
+      {
+        "id": "4501632",
+        "name": "Nayarit"
+      },
+      {
+        "id": "4501631",
+        "name": "Hidalgo"
+      },
+      {
+        "id": "4501628",
+        "name": "Morelos"
+      },
+      {
+        "id": "4501627",
+        "name": "Zacatecas"
+      },
+      {
+        "id": "4501626",
+        "name": "Coahuila"
+      },
+      {
+        "id": "4501625",
+        "name": "Tlaxcala"
+      },
+      {
+        "id": "4501622",
+        "name": "Chiapas"
+      },
+      {
+        "id": "4501621",
+        "name": "Guerrero"
+      },
+      {
+        "id": "4501620",
+        "name": "Yucatan"
+      },
+      {
+        "id": "4501618",
+        "name": "Quintana Roo"
+      },
+      {
+        "id": "4501617",
+        "name": "Puebla"
+      },
+      {
+        "id": "4501614",
+        "name": "Sonora"
+      },
+      {
+        "id": "4501613",
+        "name": "Sinaloa"
+      },
+      {
+        "id": "4501612",
+        "name": "Aguascalientes"
+      },
+      {
+        "id": "4501611",
+        "name": "Baja California Sur"
+      },
+      {
+        "id": "4501610",
+        "name": "Baja California"
+      },
+      {
+        "id": "4501609",
+        "name": "Tamaulipas"
+      },
+      {
+        "id": "4501608",
+        "name": "San Luis Potosi"
+      },
+      {
+        "id": "4501607",
+        "name": "Michoacan"
+      },
+      {
+        "id": "4501605",
+        "name": "Nuevo Leon"
+      },
+      {
+        "id": "4501603",
+        "name": "Oaxaca"
+      },
+      {
+        "id": "4495925",
+        "name": "Jalisco"
+      },
+      {
+        "id": "4495924",
+        "name": "Queretaro"
+      },
+      {
+        "id": "4495923",
+        "name": "Ciudad de Mexico"
+      },
+      {
+        "id": "4495920",
+        "name": "Guanajuato"
+      }
+    ]
+  }
+}

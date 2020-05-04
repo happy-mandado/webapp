@@ -1,0 +1,22 @@
+.product-draft-list-container {
+  height: 100%;
+}
+
+.product-draft-list-container > div {
+  height: 100%;
+}
+
+.product-draft-list {
+  padding: 0 !important;
+  #border-right: 1px solid #5565bd47;
+}
+
+.product-suggestion-list {
+  #border-left: 1px solid #F7F7F7;
+}
+
+.product-suggestion-list .header {
+  text-align: right;
+  width: 100%;
+  display: block;
+}

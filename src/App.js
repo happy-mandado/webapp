@@ -1,25 +1,59 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from 'react-redux';
+import { Grid } from 'semantic-ui-react'
+
+import Header from './Header';
+import DraftsSection from './sections/drafts-section';
+import ListsSection from './sections/lists-section';
+import './App.css'; 
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+	const isDraftsSectionVisible = useSelector(
+		store => store.selectedSection === 'drafts'
+	)
+	const isListsSectionVisible = useSelector(
+		store => store.selectedSection === 'lists'
+	)
+
+	return (
+		<div className='app-container'>
+			<Grid centered className='app-header-container'>
+				<Grid.Column
+					mobile={16}
+					tablet={12}
+					computer={10}
+					className='app-header-wrapper'
+				>
+					<Header />
+				</Grid.Column>
+			</Grid>
+			<Grid centered className='app-content-container'>
+				<Grid.Column
+					mobile={16}
+					tablet={12}
+					computer={10}
+					className='app-content-wrapper'
+				>
+					{ isDraftsSectionVisible && <DraftsSection />}
+					{ isListsSectionVisible && <ListsSection />}
+				</Grid.Column>
+			</Grid>
+			<Grid centered className='app-footer-container'>
+				<Grid.Column
+					mobile={16}
+					tablet={12}
+					computer={10}
+					className='app-footer-wrapper'
+				>
+					<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+					<span style={{ padding: '0 1em' }}>Happy</span>
+					<span style={{ padding: '0 1em' }}ole="img" aria-label="heart">💛</span>
+					<span style={{ padding: '0 1em' }}>Mandado</span>
+					</div>
+				</Grid.Column>
+			</Grid>
+		</div>
   );
 }
 
