@@ -1,0 +1,29 @@
+.product {
+  display: flex;
+  align-items: unset;
+  justify-content: space-between;
+}
+
+.product .checkbox {
+  border-left: 2px solid #ddd;
+  display: flex !important;
+  align-items: center;
+  padding-left: 1em;
+}
+
+.product .checkbox.overdue {
+  border-left: 2px solid rgb(249, 117, 117);
+}
+
+.product .checkbox.on-time {
+  border-left: 2px solid rgb(117, 225, 249);
+}
+
+.product .checkbox.early {
+  border-left: 2px solid rgb(137, 230, 161);
+}
+
+.product .meta {
+  font-size: 1em;
+  color: rgba(0,0,0,.4);
+}

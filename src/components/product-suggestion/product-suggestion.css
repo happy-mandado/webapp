@@ -1,0 +1,6 @@
+.product-suggestion {
+  display: flex;
+  align-items: unset;
+  justify-content: space-between;
+}
+

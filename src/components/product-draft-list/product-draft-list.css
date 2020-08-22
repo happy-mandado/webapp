@@ -1,0 +1,83 @@
+.product-draft-list-container {
+  height: 100%;
+}
+
+.product-draft-list-container > div {
+  height: calc(100% - 38px);
+}
+
+.product-draft-list {
+  #border-right: 1px solid #5565bd47;
+  overflow-y: scroll;
+  height: calc(100% - 28px);
+  margin: 0;
+  padding: 1em 0;
+}
+
+.product-draft-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.product-draft-list::-webkit-scrollbar-track {
+    background: white;
+}
+
+.product-draft-list::-webkit-scrollbar-thumb {
+    background: #ddd;
+    visibility:hidden;
+}
+
+.product-draft-list:hover::-webkit-scrollbar-thumb {
+    visibility:visible;
+}
+
+.product-suggestion-list {
+  #border-left: 1px solid #F7F7F7;
+  overflow-y: scroll;
+  height: calc(100% - 30px);
+  margin: 52px 0 0 0 !important;
+  padding: 0;
+}
+
+.product-suggestion-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.product-suggestion-list::-webkit-scrollbar-track {
+    background: white;
+}
+
+.product-suggestion-list::-webkit-scrollbar-thumb {
+    background: #ddd;
+    visibility:hidden;
+}
+
+.product-suggestion-list:hover::-webkit-scrollbar-thumb {
+    visibility:visible;
+}
+
+.product-draft-list-header {
+  display: flex !important;
+  justify-content: space-between;
+  height: auto !important;
+  align-items: center;
+  padding-top: 0.5em !important;
+  padding-bottom: 0 !important;
+}
+
+.product-draft-list-header > div {
+	padding: 0 .5em;
+}
+
+.product-draft-list-header .buy-button {
+  background: rgb(90, 100, 151);
+  color: white;
+  margin: 0;
+  margin-right: 4px;
+  width: 68px;
+}
+
+.product-draft-list-header .buy-button:hover {
+  background: black;
+  color: white;
+}
