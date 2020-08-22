@@ -1,0 +1,11 @@
+.ui.card .description {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ui.card .description .icon {
+  margin: 0;
+}
+
+
