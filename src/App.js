@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { loadUser } from './actions';
 import Header from './Header';
-import DraftsSection from './sections/drafts-section';
+import DraftSection from './sections/draft-section';
 import ListsSection from './sections/lists-section';
 import './App.css'; 
 
@@ -43,7 +43,7 @@ function App({ userId }) {
 					computer={10}
 					className='app-content-wrapper'
 				>
-					{ isDraftsSectionVisible && <DraftsSection />}
+					{ isDraftsSectionVisible && <DraftSection />}
 					{ isListsSectionVisible && <ListsSection />}
 				</Grid.Column>
 			</Grid>
