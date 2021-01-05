@@ -10,7 +10,6 @@ class Agent {
 	constructor(protocol, host, port, version, token) {
 		this._baseURL = Agent.createBaseURL(protocol, host, port, version)
 		this._headers = {
-		  'Authorization': 'Bearer :)',
 		  'Accept': 'application/json',
 		  'Content-Type': 'application/json',
 		};
@@ -47,7 +46,6 @@ class Agent {
 						});
 				}
 
-				console.debug(response)
 				return response.json();
 			})
 			.then(response => console.debug(response) || response)
@@ -71,4 +69,4 @@ class Agent {
 	
 }
 
-module.exports = Agent;
+export default Agent;

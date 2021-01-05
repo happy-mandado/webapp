@@ -85,7 +85,7 @@ const listsReducer = (state = {}, action) => {
 	}
 }
 
-const selectedSectionReducer = (state = 'lists', action) => {
+const selectedSectionReducer = (state = 'drafts', action) => {
 	switch(action.type) {
 		case types.SET_SECTION:
 			return action.section

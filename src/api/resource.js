@@ -4,4 +4,4 @@ class Resource {
 	}
 }
 
-module.exports = Resource;
+export default Resource;
