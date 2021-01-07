@@ -23,6 +23,10 @@
   margin-left: 12px;
 }
 
+.menu-item .icon {
+  color: #EAEAEA !important;
+}
+
 .product-lists {
   #background: #5565BD;
   padding: 11px;
@@ -43,7 +47,7 @@
   border-radius: 2px;
   width: 4px;
   height: 4px;
-  background: white;
+  background: #EAEAEA;
   position: absolute;
   left: 18px;
   bottom: 0;

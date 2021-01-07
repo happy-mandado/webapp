@@ -1,25 +1,15 @@
 import { combineReducers } from 'redux'
 
 import * as types from '../actions/actionTypes'
+import appReducer from './app'
+import listsReducer from './lists'
+import draftReducer from './draft'
 
-
-const errorMessage = (state = null, action) => {
-  const { type, error } = action
-
-  if (type === types.RESET_ERROR_MESSAGE) {
-    return null
-  } else if (error) {
-    return error
-  }
-
-  return state
-};
-
-const suggestionsReducer = (state = new Map(), action) => {
+const suggestedProductsReducer = (state = new Map(), action) => {
 	switch (action.type) {
-		case types.SET_SUGGESTIONS:
-			return action.suggestions.reduce((accum, suggestion) => {
-				accum.set(suggestion.id, suggestion);
+		case types.SET_SUGGESTED_PRODUCTS:
+			return action.suggestedProducts.reduce((accum, suggestedProduct) => {
+				accum.set(suggestedProduct.id, suggestedProduct);
 				return accum;
 			}, new Map())
 		default:
@@ -27,82 +17,11 @@ const suggestionsReducer = (state = new Map(), action) => {
 	}
 }
 
-/*
-const newDraftReducer = (state = null, action) => {
-	switch (action.type) {
-		case types.CREATE_NEW_DRAFT:
-			return {};
-		case types.REMOVE_NEW_DRAFT:
-			return null;
-		default:
-		  return state
-	}
-};
-*/
-
-const selectedDraftReducer = (state = null, action) => {
-	switch (action.type) {
-		case types.SET_DRAFT:
-			return action.draft;
-		default:
-		  return state
-	}
-};
-
-const productsReducer = (state = {}, action) => {
-	switch (action.type) {
-		case types.SET_PRODUCTS:
-			return action.products.reduce((accum, product) => {
-				accum[product.id] = product;
-				return accum;
-			}, {})
-		default:
-		  return state
-	}
-}
-
-const draftsReducer = (state = {}, action) => {
-	switch (action.type) {
-		case types.SET_DRAFTS:
-			return action.drafts.reduce((accum, draft) => {
-				accum[draft.id] = draft;
-				return accum;
-			}, {})
-		default:
-		  return state
-	}
-}
-
-const listsReducer = (state = {}, action) => {
-	switch (action.type) {
-		case types.SET_LISTS:
-			return action.lists.reduce((accum, list) => {
-				accum[list.id] = list;
-				return accum;
-			}, {})
-		default:
-		  return state
-	}
-}
-
-const selectedSectionReducer = (state = 'drafts', action) => {
-	switch(action.type) {
-		case types.SET_SECTION:
-			return action.section
-		default:
-			return state
-	}
-}
-
 const rootReducer = combineReducers({
-  	selectedSection: selectedSectionReducer,
-  	lists: listsReducer,
-  	drafts: draftsReducer,
-	selectedDraft: selectedDraftReducer,
-	// newDraft: newDraftReducer,
-	products: productsReducer,
-	suggestions: suggestionsReducer,
-  	errorMessage,
+	app: appReducer,
+	lists: listsReducer,
+	draft: draftReducer,
+	suggestedProducts: suggestedProductsReducer,
 });
 
 export default rootReducer;
