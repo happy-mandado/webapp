@@ -6,7 +6,7 @@ import { Grid, Header, List, Button } from 'semantic-ui-react'
 import Product from '../product'
 import ProductSuggestion from '../product-suggestion'
 import ProductInput from '../product-input'
-import './product-draft-list.css'
+import './product-list-draft.css'
 
 
 const ProductList = ({ products }) => {
@@ -25,23 +25,23 @@ const ProductList = ({ products }) => {
 	))
 }
 
-const SuggestionList = ({ suggestions }) => {
+const SuggestionList = ({ suggestedProducts }) => {
 	const [selectedSuggestion, setSelectedSuggestion] = useState({})
 
-	return Array.from(suggestions.values(), (suggestion) => (
-		<List.Item key={JSON.stringify(suggestion)} >
+	return suggestedProducts.map((suggestedProduct) => (
+		<List.Item key={JSON.stringify(suggestedProduct)} >
 			<List.Content>
 				<ProductSuggestion
-					{...suggestion}
-					selected={suggestion.id === selectedSuggestion.id}
-					onClick={() => setSelectedSuggestion(suggestion)}
+					{...suggestedProduct}
+					selected={suggestedProduct.id === selectedSuggestion.id}
+					onClick={() => setSelectedSuggestion(suggestedProduct)}
 				/>
 			</List.Content>
 		</List.Item>
 	))
 }
 
-function ProductDraftList({ name, products, suggestions }) {
+function ProductListDraft({ name, products, suggestedProducts }) {
 	return (
 		<Grid centered className='product-draft-list-container'>
 			<Grid.Column
@@ -75,11 +75,11 @@ function ProductDraftList({ name, products, suggestions }) {
 					className='product-suggestion-list'
 					verticalAlign='middle'
 				  >
-					<SuggestionList suggestions={suggestions} />
+					<SuggestionList suggestedProducts={suggestedProducts} />
 				</List>
 			</Grid.Column>
 		</Grid>
 	)
 }
 
-export default ProductDraftList;
+export default ProductListDraft;

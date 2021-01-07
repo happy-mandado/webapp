@@ -1,10 +1,38 @@
 import React from 'react';
 import _ from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
-import { Feed, Header } from 'semantic-ui-react'
+import { Icon, Feed, Header, Message } from 'semantic-ui-react'
 
 import { loadLists } from '../actions';
-import { ProductListSummary } from '../components/product-list'
+import './lists-section.css';
+
+const ProductLists = ({lists}) => {
+	return (
+		<Feed>
+			{
+				Object.values(lists).map(({product, name}) => (
+					<Feed.Event>
+						<Feed.Label image='walmart-icon.png' />
+						<Feed.Content>
+							<Feed.Date>1 Hour Ago</Feed.Date>
+							<Feed.Summary>
+								{name}
+							</Feed.Summary>
+						</Feed.Content>
+					</Feed.Event>
+				))
+			}
+		</Feed>
+	);
+};
+
+const EmptySectionMessage = () => {
+	return (
+		<Message>
+			You have not purchased anything yet :(
+		</Message>
+	);
+};
 
 const ListsSection = () => {
 	const lists = useSelector(state => state.lists, _.isEqual);
@@ -19,13 +47,8 @@ const ListsSection = () => {
 
 	return (
 		<div className='app-content'>
-			<Feed>
-				{
-					Object.values(lists).map((list) => (
-						<ProductListSummary {...list} />
-					))
-				}
-			</Feed>
+			{ lists.length && <ProductLists lists={lists} /> }
+			{ !lists.length && <EmptySectionMessage /> }
 		</div>
 	);
 };

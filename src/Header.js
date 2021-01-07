@@ -2,15 +2,15 @@ import React from 'react';
 import { Grid, Button, Image } from 'semantic-ui-react'
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectSection, createDraft, cancelDraft, selectDraft } from './actions'
+import { selectSection } from './actions'
 import Menu from './components/menu'
 import './App.css'
 
 
 function Header({ activeItem }) {
-	const selectedSection = useSelector(store => store.selectedSection)
+	const selectedSection = useSelector(store => store.app.section)
 	const dispatch = useDispatch();
-	const handleDraftCreation = (draft) => createDraft(dispatch);
+	// const handleDraftCreation = (draft) => createDraft(dispatch);
 
 	return (
 		<Grid className='app-header'>
@@ -25,7 +25,7 @@ function Header({ activeItem }) {
 						// Change section
 						selectSection(section, dispatch);
 						// Clean draft
-						selectDraft(null, dispatch);
+						// selectDraft(null, dispatch);
 					}}
 				/>
 			</Grid.Column>
@@ -39,7 +39,7 @@ function Header({ activeItem }) {
 				/>
 				<Button
 					style={{ background: 'white', float: 'right', borderRadius: '2px', padding: '0.5em 0.7em', display: 'none' }}
-					onClick={() => {handleDraftCreation(); selectSection('drafts', dispatch); }}
+					// onClick={() => {handleDraftCreation(); selectSection('drafts', dispatch); }}
 				>
 					<i className='plus icon' style={{ color: '#5a6497', margin: 0 }}/>
 				</Button>
