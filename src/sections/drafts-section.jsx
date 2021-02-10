@@ -22,6 +22,11 @@ function selectedListIdSelector(state) {
 	return selectedListId;
 }
 
+const DraftActions = () => {
+	return (
+	);
+};
+
 const DraftsSection = () => {
 	const openedLists = useSelector(state => state.lists.opened, _.isEqual);
 	const products = useSelector(state => state.draft.products, _.isEqual);
