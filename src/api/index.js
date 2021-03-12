@@ -12,7 +12,9 @@ const API = () => {
 	return {
 		client: (args) => {
 			if (instance) {
-				return instance.hasSameArguments(args) && instance
+				if (!args || instance.hasSameArguments(args)) {
+					return instance
+				}
 			}
 
 			return createInstance(args)
