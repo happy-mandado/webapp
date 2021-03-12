@@ -13,6 +13,18 @@ import * as serviceWorker from './serviceWorker';
 import './index.css';
 
 
+import API from './api';
+const config = {
+	api: {
+		host: process.env.REACT_APP_API_HOST,
+		protocol: process.env.REACT_APP_API_PROTOCOL,
+		version: process.env.REACT_APP_API_VERSION,
+		port: process.env.REACT_APP_API_PORT,
+	},
+}
+
+API.client(config.api)
+
 const index = (props) => {
 	props.redirectTo = null;
 	props.cookieName = process.env.REACT_APP_COOKIE_NAME;
@@ -46,7 +58,7 @@ ReactDOM.render(
 		<Router>
 			<Route exact={true} path="/" render={index}/>
 			<Route exact={true} path="/login" render={index}/>
-		</Router>,
+		</Router>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

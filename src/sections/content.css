@@ -1,0 +1,11 @@
+.section-content {
+	height: 100%;
+}
+
+.section-content > .main-content {
+	height: 100%;
+}
+
+.section-content > .side-content {
+	height: 100%;
+}

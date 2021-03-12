@@ -1,76 +1,150 @@
-import React from 'react';
+import React, { useState } from 'react';
 import _ from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
-import { Header, Grid, Card, Label, Button, Select } from 'semantic-ui-react'
+import {
+	Header, Grid, Card, Label, Button, Dropdown, Message, Modal,
+} from 'semantic-ui-react'
 
 import {
-	loadLists, loadDraft, loadSuggestedProducts,
+	loadDraft, loadPurchasedProducts, addProductToDraft, removeProductFromDraft,
+	createList, createDraft,
 } from '../actions';
-import { ProductListDraft } from '../components/product-list'
+import { ProductDraftList } from '../components/product-list'
+import { SuggestionList } from '../components/suggestion-list'
+import { ProductInput } from '../components/product'
+import Content from './content'
+import './drafts-section.css'
 
-function selectedListIdSelector(state) {
-	let selectedListId = state.app.selectedListId;
 
-	if (state.lists.opened) {
-		const openedLists = Object.values(state.lists.opened);
-		
-		if (openedLists.length) {
-			selectedListId = openedLists[0].id;
-		}
-	}
-
-	return selectedListId;
-}
-
-const DraftsSection = () => {
-	const openedLists = useSelector(state => state.lists.opened, _.isEqual);
-	const products = useSelector(state => state.draft.products, _.isEqual);
-	const suggestedProducts = useSelector(
-		state => state.suggestedProducts, _.isEqual
-	);
-	const selectedListId = useSelector(selectedListIdSelector)
-	//const options = Object.values(cities)
-	//	.map(city => ({ key: city.id, value: city.id, text: city.name }));
+const Empty = ({ user }) => {
 	const dispatch = useDispatch();
-	React.useEffect(
-		() => {
-			loadLists(dispatch);
-			selectedListId && loadDraft(dispatch, selectedListId);
-			loadSuggestedProducts(dispatch);
+
+	return (
+		<div className='empty-product-draft-list'>
+			<Header>
+				You have no open lists
+			</Header>
+			<div>
+			<Button
+				onClick={() => createDraft(dispatch, user.id)}
+			>
+				Create a list
+			</Button>
+			</div>
+		</div>
+	);
+};
+
+const DraftListContainer = ({ user, draft, purchasedProducts }) => {
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const dispatch = useDispatch();
+	const onProductCreation = (productName) => {
+		const product = { name: productName };
+		return addProductToDraft(dispatch, user.id, draft.id, product);
+	};
+	const onProductRemoval = (productId) => {
+		return removeProductFromDraft(dispatch, user.id, draft.id, productId);
+	};
+
+	const productsAsOptions = [];
+	for (const productName in purchasedProducts) {
+		if (productName in draft.products) {
+			continue
 		}
+		productsAsOptions.push({
+			...purchasedProducts[productName],
+			label: productName,
+			value: purchasedProducts[productName].id,
+		});
+	}
+
+	const productsAsList = Object.values(draft.products);
+
+	return (
+		<>
+			<div className='product-draft-list-header'>
+					<div>
+						<Header as='h3'>
+							{draft.name}
+						</Header>
+					</div>
+					<Button
+						className='buy-button' 
+						size='tiny'
+						icon='inverted shopping cart icon'
+						onClick={() => setIsModalOpen(true)}
+					/>
+			</div>
+			<ProductInput
+				options={productsAsOptions}
+				onCreation={onProductCreation}
+			/>
+			<ProductDraftList
+				products={productsAsList}
+				onRemoval={onProductRemoval}
+			/>
+			<Modal
+				size='tiny'
+				open={isModalOpen}
+				onClose={() => setIsModalOpen(false)}
+			>
+				<Modal.Content>
+					<p>You are about to close this list with N items in it</p>
+				</Modal.Content>
+				<Modal.Actions>
+					<Button
+						onClick={() => setIsModalOpen(false)}
+					>
+						Back
+					</Button>
+					<Button
+						className='confirm-button'
+						onClick={() => createList(dispatch, user.id, draft.id, productsAsList)}
+					>
+						Continue
+					</Button>
+				</Modal.Actions>
+			</Modal>
+		</>
+	);
+};
+
+const DraftsSection = ({ user }) => {
+	const draft = useSelector(state => state.draft, _.isEqual)
+	const purchasedProducts = useSelector(
+		state => state.user.purchasedProducts, _.isEqual
 	);
 
-	console.log(openedLists)
-	console.log(products)
-	console.log(suggestedProducts)
-	console.log(selectedListId)
-
-	const openedListsAsOptions = Object.values(openedLists).map((list) => ({
-		key: list.id,
-		value: list.id,
-		text: list.name,
-	}))
-
-	const draft = {
-		products: Object.values(products),
-		suggestedProducts: Array.from(suggestedProducts.values()),
-	}
+	const dispatch = useDispatch();
+	// TODO: Execute after every render when multiple drafts are supported
+	// Multiple drafts mean that possible purchases occur while this draft
+	// is being filled
+	React.useEffect(() => {
+		loadPurchasedProducts(dispatch, user.id);
+	}, [user.id]);
+	React.useEffect(() => {
+		loadDraft(dispatch, user.id);
+	}, [user.id]);
 
 	return (
 		<div className='app-content'>
-			{ selectedListId &&
-				<Select
-					placeholder='Select a list'
-					options={openedListsAsOptions}
-					selected={selectedListId}
+			{
+				draft.id && <Content>
+					<DraftListContainer
+						user={user}
+						draft={draft}
+						purchasedProducts={purchasedProducts}
+					/>
+					<SuggestionList/>
+				</Content>
+			}
+			{
+				!draft.id && <Empty
+					user={user} 
 				/>
 			}
-			{ !selectedListId &&
-				<Select placeholder='No lists available' disabled/>
-			}
-			{ selectedListId && <ProductListDraft {...draft} /> }
 		</div>
-		
 	);
 };
 

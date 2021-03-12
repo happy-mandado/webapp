@@ -1,17 +1,17 @@
 class AgentError extends Error {
-  constructor(statusCode, message) {
-    super(message);
+	constructor(statusCode, message) {
+		super(message);
 
-    this.statusCode = statusCode;
-  }
+		this.statusCode = statusCode;
+	}
 }
 
 class Agent {
 	constructor(protocol, host, port, version, token) {
 		this._baseURL = Agent.createBaseURL(protocol, host, port, version)
 		this._headers = {
-		  'Accept': 'application/json',
-		  'Content-Type': 'application/json',
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
 		};
 	}
 
@@ -22,7 +22,7 @@ class Agent {
 
 	_call(path, method, body, headers = {}) {
 		const url = `${this._baseURL}${path}`
-		console.debug('call: ', url, headers, body);
+		console.debug('call: ', { url, headers, body });
 
 		const request = new Request(
 			url,
@@ -36,19 +36,27 @@ class Agent {
 
 		return fetch(request)
 			.then((response) => {
+				if (response.status === 401) {
+					return window.location = process.env.REACT_APP_LOGOUT_URL;
+				}
+
 				if (response.status < 200 || response.status >= 300) {
-					console.debug(response);
 					return response.json()
 						.then((body) => {
+							response.error = body.error;
+							console.debug('response: ', response);
 							throw new AgentError(
-								response.status, JSON.stringify(body)
+								response.status, body.error
 							);
 						});
 				}
 
 				return response.json();
 			})
-			.then(response => console.debug(response) || response)
+			.then((body) => {
+				console.debug('response: ', body);
+				return body;
+			})
 			.catch((error) => {
 				console.error(error);
 				return Promise.reject(error);
@@ -66,7 +74,10 @@ class Agent {
 	put(path, body) {
 		return this._call(path, 'PUT', body);
 	}
-	
+
+	delete(path) {
+		return this._call(path, 'DELETE');
+	}
 }
 
 export default Agent;

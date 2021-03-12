@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Label, Checkbox } from 'semantic-ui-react'
+import { Label, Checkbox, Icon } from 'semantic-ui-react'
 
 import './product.css'
 
@@ -28,13 +28,7 @@ const Status = ({ overdue, early, onTime }) => {
 
 function Product(props) {
 	const {
-		id,
-		name,
-		selected,
-		onClick,
-		overdue,
-		early,
-		onTime,
+		id, name, selected, onClick, overdue, early, onTime, onRemoval,
 	} = props
 
 	let className = null
@@ -48,6 +42,7 @@ function Product(props) {
 			<Checkbox label={name} className={className}/>
 			<div style={{ display: 'flex', marginRight: '1em' }} >
 				{ selected && <Status overdue={overdue} early={early} onTime={onTime} /> }
+				{ selected && <Icon name='trash' onClick={ () => onRemoval(id) }/> }
 			</div>
 		</div>
 	)

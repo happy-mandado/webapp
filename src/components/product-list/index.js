@@ -1,8 +1,8 @@
 import ProductList from './product-list';
-import ProductListDraft from './product-list-draft';
+import ProductDraftList from './product-draft-list';
 
 export {
-	ProductListDraft, ProductList,
+	ProductDraftList, ProductList,
 }
 
 export default ProductList

@@ -3,24 +3,28 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Grid } from 'semantic-ui-react'
 import _ from 'lodash';
 
+import { DRAFTS_SECTION, LISTS_SECTION } from './consts'
 import { loadUser } from './actions';
 import Header from './Header';
 import DraftsSection from './sections/drafts-section';
 import ListsSection from './sections/lists-section';
+import Loading from './components/loading'
 import './App.css'; 
 
 
 function App({ userId }) {
-	const selectedSection = useSelector(store => store.app.section)
 	const user = useSelector(state => state.user, _.isEqual);
+	const selectedSection = useSelector(store => store.app.section)
 	const dispatch = useDispatch();
 
 	React.useEffect(
-		() => { loadUser(dispatch, userId) }
+		() => {
+			userId && loadUser(dispatch, userId);
+		}
 	)
 
-	const isDraftsSectionVisible = selectedSection === 'drafts'
-	const isListsSectionVisible = selectedSection === 'lists'
+	const isDraftsSectionVisible = selectedSection === DRAFTS_SECTION
+	const isListsSectionVisible = selectedSection === LISTS_SECTION
 
 	return (
 		<div className='app-container'>
@@ -41,8 +45,9 @@ function App({ userId }) {
 					computer={10}
 					className='app-content-wrapper'
 				>
-					{ isDraftsSectionVisible && <DraftsSection />}
-					{ isListsSectionVisible && <ListsSection />}
+					{ !userId && <Loading /> }
+					{ userId && isDraftsSectionVisible && <DraftsSection user={user} /> }
+					{ userId && isListsSectionVisible && <ListsSection /> }
 				</Grid.Column>
 			</Grid>
 			<Grid centered className='app-footer-container'>
@@ -60,7 +65,7 @@ function App({ userId }) {
 				</Grid.Column>
 			</Grid>
 		</div>
-  );
+	);
 }
 
 export default App;
