@@ -2,20 +2,62 @@ import { combineReducers } from 'redux'
 
 import * as types from '../actions/actionTypes'
 
-const productsReducer = (state = {}, action) => {
+const draftReducer = (state = {}, action) => {
 	switch (action.type) {
+		case types.SET_DRAFT:
+			return {
+				products: [],
+				...state,
+				...action.draft,
+			};
 		case types.SET_DRAFT_PRODUCTS:
-			return action.products.reduce((accum, product) => {
-				accum[product.id] = product;
+			const productsOnSet = action.products.reduce((accum, product) => {
+				accum[product.name] = product;
 				return accum;
-			}, {})
+			}, {});
+
+			return {
+				...state,
+				products: productsOnSet,
+			};
+		case types.ADD_DRAFT_PRODUCT:
+			return {
+				...state,
+				products: {
+					...state.products,
+					[action.product.name]: action.product,
+				},
+			};
+		case types.REMOVE_DRAFT_PRODUCT:
+			const productsOnRemoval = {
+				...state.products
+			};
+
+			delete productsOnRemoval[action.product.name];
+
+			return {
+				...state,
+				products: productsOnRemoval,
+			};
+		case types.REMOVE_DRAFT:
+			// NOTE: Does not matter there are no products since empty section
+			// will be rendered
+			return {
+				// No id
+				// No name
+				// No products
+			};
+		case types.CREATE_DRAFT:
+			// Be careful here with products, we may have some orphan products
+			// from an unsuccesful removal
+			// NOTE: products here will be overwriten after first render of section
+			return {
+				...action.draft, 
+				products: [],
+			};
 		default:
 		  return state
 	}
 }
-
-const draftReducer = combineReducers({
-	products: productsReducer,
-});
 
 export default draftReducer;

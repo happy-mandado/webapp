@@ -2,12 +2,18 @@ export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE';
 
 export const SET_SECTION = 'SET_SECTION';
 
-export const SET_USER = 'SET_USER';
-export const UPDATE_USER = 'UPDATE_USER';
+export const SET_USER = 'USER/SET';
+export const UPDATE_USER = 'USER/UPDATE';
+export const SET_USER_PURCHASED_PRODUCTS = 'USER/SET_PURCHASED_PRODUCTS';
 
 export const SET_LISTS = 'SET_LISTS';
 
-export const SET_DRAFT_PRODUCTS = 'SET_PRODUCTS';
+export const SET_DRAFT = 'DRAFT/SET';
+export const REMOVE_DRAFT = 'DRAFT/REMOVE';
+export const CREATE_DRAFT = 'DRAFT/CREATE';
+export const SET_DRAFT_PRODUCTS = 'DRAFT/SET_PRODUCTS';
+export const ADD_DRAFT_PRODUCT = 'DRAFT/ADD_PRODUCT';
+export const REMOVE_DRAFT_PRODUCT = 'DRAFT/REMOVE_PRODUCT'
 
 export const SET_PRODUCT = 'SET_PRODUCT';
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
