@@ -1,0 +1,13 @@
+.app-header {
+  padding: 0.8rem !important;
+}
+
+.app-header > div {
+  padding: 0 !important;
+}
+
+.app-header .hm-avatar {
+  float: right;
+}
+
+
