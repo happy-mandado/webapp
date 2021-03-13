@@ -8,6 +8,27 @@
 
 .app-header .hm-avatar {
   float: right;
+  border: 0;
+  background: none;
+  box-shadow: none;
 }
 
+.app-header .ui.image {
+  width: 38px;
+}
 
+.app-header .ui.dropdown {
+}
+
+.app-header .ui.dropdown .icon {
+  margin: 0 !important;
+  color: #EAEAEA;
+}
+
+.hm-avatar .menu {
+  margin: 12px 0 0 -56px !important;
+}
+
+.hm-avatar .menu .icon {
+  color: black !important;
+}

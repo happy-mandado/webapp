@@ -1,9 +1,9 @@
 import React from 'react';
-import { Grid, Button, Image } from 'semantic-ui-react'
+import { Grid, Button, Image, Icon, Dropdown, Menu } from 'semantic-ui-react'
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectSection } from './actions'
-import Menu from './components/menu'
+import LocalMenu from './components/menu'
 import './Header.css'
 
 
@@ -21,19 +21,30 @@ function Header({ user }) {
 				tablet={8}
 				computer={8}
 			>
-				<Menu
+				<LocalMenu
 					activeItem={selectedSection}
 					onItemClick={(section) => selectSection(section, dispatch)}
 				/>
 			</Grid.Column>
 			<Grid.Column mobile={8} tablet={8} computer={8}>
-				<Image
-					circular
-					as='div'
-					size='mini'
-					src={avatarImagePath}
-					className='hm-avatar'
-				/>
+				<Menu compact className='hm-avatar'>
+					<Image
+						circular
+						as='div'
+						size='mini'
+						src={avatarImagePath}
+					/>
+					<Dropdown className='link item'>
+						<Dropdown.Menu>
+							<Dropdown.Item
+								href={process.env.REACT_APP_LOGOUT_URL}
+							>
+								<Icon name='log out' />
+								Log out
+							</Dropdown.Item>
+						</Dropdown.Menu>
+					</Dropdown>
+				</Menu>
 			</Grid.Column>
 		</Grid>
 	)
