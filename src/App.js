@@ -35,7 +35,7 @@ function App({ userId }) {
 					computer={10}
 					className='app-header-wrapper'
 				>
-					<Header />
+					<Header user={user} />
 				</Grid.Column>
 			</Grid>
 			<Grid centered className='app-content-container'>

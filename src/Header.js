@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { selectSection } from './actions'
 import Menu from './components/menu'
-import './App.css'
+import './Header.css'
 
 
-function Header({ activeItem }) {
+const defaultAvatarImagePath = '/default-avatar.png';
+
+function Header({ user }) {
+	const avatarImagePath = user.picture || defaultAvatarImagePath;
 	const selectedSection = useSelector(store => store.app.section)
 	const dispatch = useDispatch();
-	// const handleDraftCreation = (draft) => createDraft(dispatch);
 
 	return (
 		<Grid className='app-header'>
@@ -21,12 +23,7 @@ function Header({ activeItem }) {
 			>
 				<Menu
 					activeItem={selectedSection}
-					onItemClick={(section) => {
-						// Change section
-						selectSection(section, dispatch);
-						// Clean draft
-						// selectDraft(null, dispatch);
-					}}
+					onItemClick={(section) => selectSection(section, dispatch)}
 				/>
 			</Grid.Column>
 			<Grid.Column mobile={8} tablet={8} computer={8}>
@@ -34,15 +31,9 @@ function Header({ activeItem }) {
 					circular
 					as='div'
 					size='mini'
-					src='https://avatars0.githubusercontent.com/u/3792003?s=200'
-					style={{ float: 'right' }}
+					src={avatarImagePath}
+					className='hm-avatar'
 				/>
-				<Button
-					style={{ background: 'white', float: 'right', borderRadius: '2px', padding: '0.5em 0.7em', display: 'none' }}
-					// onClick={() => {handleDraftCreation(); selectSection('drafts', dispatch); }}
-				>
-					<i className='plus icon' style={{ color: '#5a6497', margin: 0 }}/>
-				</Button>
 			</Grid.Column>
 		</Grid>
 	)
