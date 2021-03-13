@@ -1,5 +1,5 @@
 .product-draft-list {
-  border-right: 1px solid #5565bd47;
+  /*border-right: 1px solid #5565bd47;*/
   overflow-y: scroll;
   height: calc(100% - 80px); /* 80px is the height of product input + list header */
   margin: 0;
