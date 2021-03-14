@@ -7,7 +7,8 @@ import {
 
 import {
 	loadDraft, loadPurchasedProducts, addProductToDraft, removeProductFromDraft,
-	createList, createDraft,
+	createList, createDraft, selectProductInDraft, loadDraftProducts,
+	unselectProductInDraft,
 } from '../actions';
 import { ProductDraftList } from '../components/product-list'
 import { SuggestionList } from '../components/suggestion-list'
@@ -27,7 +28,9 @@ const Empty = ({ user }) => {
 			</Header>
 			<div>
 			<Button
-				onClick={() => createDraft(dispatch, user.id)}
+				onClick={async () => {
+					createDraft(dispatch, user.id);
+				}}
 			>
 				Create a list
 			</Button>
@@ -47,6 +50,12 @@ const DraftListContainer = ({ user, draft, purchasedProducts }) => {
 	const onProductRemoval = (productId) => {
 		return removeProductFromDraft(dispatch, user.id, draft.id, productId);
 	};
+	const onProductSelection = (productName) => {
+		return selectProductInDraft(dispatch, productName);
+	};
+	const onProductUnselection = (productName) => {
+		return unselectProductInDraft(dispatch, productName);
+	};
 
 	const productsAsOptions = [];
 	for (const productName in purchasedProducts) {
@@ -60,7 +69,16 @@ const DraftListContainer = ({ user, draft, purchasedProducts }) => {
 		});
 	}
 
-	const productsAsList = Object.values(draft.products);
+	const products = [];
+	const selectedProducts = [];
+
+	for (const key in draft.products) {
+		const product = draft.products[key];
+		if (product.selected) {
+			selectedProducts.push(product);
+		}
+		products.push(product);
+	}
 
 	return (
 		<>
@@ -82,8 +100,10 @@ const DraftListContainer = ({ user, draft, purchasedProducts }) => {
 				onCreation={onProductCreation}
 			/>
 			<ProductDraftList
-				products={productsAsList}
+				products={products}
 				onRemoval={onProductRemoval}
+				onSelection={onProductSelection}
+				onUnselection={onProductUnselection}
 			/>
 			<Modal
 				size='tiny'
@@ -91,7 +111,7 @@ const DraftListContainer = ({ user, draft, purchasedProducts }) => {
 				onClose={() => setIsModalOpen(false)}
 			>
 				<Modal.Content>
-					<p>You are about to close this list with N items in it</p>
+					<p>You are about to close this list with {selectedProducts.length} items in it</p>
 				</Modal.Content>
 				<Modal.Actions>
 					<Button
@@ -101,7 +121,7 @@ const DraftListContainer = ({ user, draft, purchasedProducts }) => {
 					</Button>
 					<Button
 						className='confirm-button'
-						onClick={() => createList(dispatch, user.id, draft.id, productsAsList)}
+						onClick={() => createList(dispatch, user.id, draft.id, selectedProducts)}
 					>
 						Continue
 					</Button>
@@ -111,7 +131,7 @@ const DraftListContainer = ({ user, draft, purchasedProducts }) => {
 	);
 };
 
-const DraftsSection = ({ user, isLoading }) => {
+const DraftsSection = ({ user, isLoading, isVisible }) => {
 	const draft = useSelector(state => state.draft, _.isEqual)
 	const purchasedProducts = useSelector(
 		state => state.user.purchasedProducts, _.isEqual
@@ -127,6 +147,9 @@ const DraftsSection = ({ user, isLoading }) => {
 	React.useEffect(() => {
 		loadDraft(dispatch, user.id);
 	}, [user.id]);
+	React.useEffect(() => {
+		loadDraftProducts(dispatch, user.id, draft.id);
+	}, [user.id, draft.id]);
 
 	if (isLoading) {
 		return <Loader />

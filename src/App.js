@@ -21,7 +21,7 @@ function App({ userId }) {
 
 	React.useEffect(() => {
 			loadUser(dispatch, userId);
-	})
+	}, [user.id])
 
 	const isDraftsSectionVisible = !isLoading && selectedSection.id === DRAFTS_SECTION
 	const isListsSectionVisible = !isLoading && selectedSection.id === LISTS_SECTION
