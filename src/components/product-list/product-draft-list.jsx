@@ -7,8 +7,8 @@ import Product from '../product'
 import './product-draft-list.css'
 
 
-function ProductDraftList({ products=[], onRemoval }) {
-	const [selectedProduct, setSelectedProduct] = useState({})
+function ProductDraftList({ products=[], onRemoval, onSelection, onUnselection }) {
+	const [activeProduct, setActiveProduct] = useState({})
 
 	return (
 		<>
@@ -23,9 +23,11 @@ function ProductDraftList({ products=[], onRemoval }) {
 							<List.Content>
 								<Product
 									{...product}
-									selected={product.id === selectedProduct.id}
-									onClick={() => setSelectedProduct(product)}
+									active={product.id === activeProduct.id}
+									onClick={() => setActiveProduct(product)}
 									onRemoval={onRemoval}
+									onSelection={onSelection}
+									onUnselection={onUnselection}
 								/>
 							</List.Content>
 						</List.Item>

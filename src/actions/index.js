@@ -65,14 +65,18 @@ export const loadDraft = async (dispatch, userId) => {
 
 	dispatch({ type: types.SET_DRAFT, draft: drafts[0] });
 	dispatch({ type: types.SET_APP_SECTION_LOADING_STATE, isLoading: false });
+};
 
-	if (!drafts[0]) {
+export const loadDraftProducts = async (dispatch, userId, draftId) => {
+	if (!userId || !draftId) {
 		return
 	}
 
+	const api = API.client();
+
 	let products;
 	try {
-		products = await api.readUserDraftProducts(userId, drafts[0].id);
+		products = await api.readUserDraftProducts(userId, draftId);
 	} catch(error) {
 		return console.error(error);
 	}
@@ -167,4 +171,14 @@ export const loadLists = (dispatch) => {
 
 export const closeList = (dispatch) => {
 	// coming from a draft
+}
+
+export const selectProductInDraft = (dispatch, productName) => {
+	const product = { name: productName };
+	dispatch({ type: types.SELECT_DRAFT_PRODUCT, product });
+}
+
+export const unselectProductInDraft = (dispatch, productName) => {
+	const product = { name: productName };
+	dispatch({ type: types.UNSELECT_DRAFT_PRODUCT, product });
 }

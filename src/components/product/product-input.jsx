@@ -77,7 +77,6 @@ function ProductInput({onCreation, options}) {
 		switch(action) {
 			case 'create-option':
 			case 'select-option':
-				console.log(option);
 				return onCreation(option.label);
 			default:
 				return;

@@ -6,7 +6,7 @@ const draftReducer = (state = {}, action) => {
 	switch (action.type) {
 		case types.SET_DRAFT:
 			return {
-				products: [],
+				products: {},
 				...state,
 				...action.draft,
 			};
@@ -51,9 +51,34 @@ const draftReducer = (state = {}, action) => {
 			// Be careful here with products, we may have some orphan products
 			// from an unsuccesful removal
 			// NOTE: products here will be overwriten after first render of section
+			const productsOnCreation = {
+				...state.products,
+			};
 			return {
 				...action.draft, 
-				products: [],
+				products: productsOnCreation,
+			};
+		case types.SELECT_DRAFT_PRODUCT:
+			const productsOnSelection = {
+				...state.products
+			};
+
+			productsOnSelection[action.product.name].selected = true;
+
+			return {
+				...state,
+				products: productsOnSelection,
+			};
+		case types.UNSELECT_DRAFT_PRODUCT:
+			const productsOnUnselection = {
+				...state.products
+			};
+
+			productsOnUnselection[action.product.name].selected = false;
+
+			return {
+				...state,
+				products: productsOnUnselection,
 			};
 		default:
 		  return state

@@ -4,45 +4,29 @@ import { Label, Checkbox, Icon } from 'semantic-ui-react'
 import './product.css'
 
 
-const Status = ({ overdue, early, onTime }) => {
-	if (overdue) {
-		return (
-			<span className='meta'>Overdue by {overdue}</span>
-		)
-	}
-
-	if (early) {
-		return (
-			<span className='meta'>Overdue by {early}</span>
-		)
-	}
-
-	if (onTime) {
-		return (
-			<span className='meta'>OnTime</span>
-		)
-	}
-
-	return <></>
-}
-
 function Product(props) {
 	const {
-		id, name, selected, onClick, overdue, early, onTime, onRemoval,
-	} = props
+		id, name, selected, onClick, overdue, early, onTime, onRemoval, onSelection,
+		onUnselection, active,
+	} = props;
 
-	let className = null
-	className = className || overdue && 'overdue'
-	className = className || early && 'early'
-	className = className || onTime && 'on-time'
+	const onCheckboxChange = (e, checkbox) => {
+		if (checkbox.checked) {
+			onSelection(checkbox.label);
+		} else {
+			onUnselection(checkbox.label);
+		}
+	};
 	
-
 	return (
 		<div className='product' onClick={onClick}>
-			<Checkbox label={name} className={className}/>
+			<Checkbox
+				label={name}
+				onChange={onCheckboxChange}
+				checked={selected}
+			/>
 			<div style={{ display: 'flex', marginRight: '1em' }} >
-				{ selected && <Status overdue={overdue} early={early} onTime={onTime} /> }
-				{ selected && <Icon name='trash' onClick={ () => onRemoval(id) }/> }
+				{ active && <Icon name='trash' onClick={ () => onRemoval(id) }/> }
 			</div>
 		</div>
 	)
