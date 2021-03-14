@@ -6,25 +6,25 @@ import _ from 'lodash';
 import { DRAFTS_SECTION, LISTS_SECTION } from './consts'
 import { loadUser } from './actions';
 import Header from './Header';
+import Footer from './Footer';
 import DraftsSection from './sections/drafts-section';
 import ListsSection from './sections/lists-section';
-import Loading from './components/loading'
+import Loader from './components/loader'
 import './App.css'; 
 
 
 function App({ userId }) {
 	const user = useSelector(state => state.user, _.isEqual);
-	const selectedSection = useSelector(store => store.app.section)
+	const isLoading = useSelector(state => state.app.isLoading);
+	const selectedSection = useSelector(store => store.app.section, _.isEqual)
 	const dispatch = useDispatch();
 
-	React.useEffect(
-		() => {
-			userId && loadUser(dispatch, userId);
-		}
-	)
+	React.useEffect(() => {
+			loadUser(dispatch, userId);
+	})
 
-	const isDraftsSectionVisible = selectedSection === DRAFTS_SECTION
-	const isListsSectionVisible = selectedSection === LISTS_SECTION
+	const isDraftsSectionVisible = !isLoading && selectedSection.id === DRAFTS_SECTION
+	const isListsSectionVisible = !isLoading && selectedSection.id === LISTS_SECTION
 
 	return (
 		<div className='app-container'>
@@ -45,9 +45,19 @@ function App({ userId }) {
 					computer={10}
 					className='app-content-wrapper'
 				>
-					{ !userId && <Loading /> }
-					{ userId && isDraftsSectionVisible && <DraftsSection user={user} /> }
-					{ userId && isListsSectionVisible && <ListsSection /> }
+					{ isLoading && <Loader /> }
+					{
+						isDraftsSectionVisible && <DraftsSection
+							user={user}
+							isLoading={selectedSection.isLoading}
+						/>
+					}
+					{
+						isListsSectionVisible && <ListsSection
+							user={user}
+							isLoading={selectedSection.isLoading}
+						/>
+					}
 				</Grid.Column>
 			</Grid>
 			<Grid centered className='app-footer-container'>
@@ -57,11 +67,7 @@ function App({ userId }) {
 					computer={10}
 					className='app-footer-wrapper'
 				>
-					<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-					<span style={{ padding: '0 1em', font: '16px Lobster Two', color: '#5A5A4A' }}>Happy</span>
-					<span role="img" aria-label="heart">💛</span>
-					<span style={{ padding: '0 1em', font: '16px Lobster Two', color: '#5A5A5A' }}>Mandado</span>
-					</div>
+					<Footer />
 				</Grid.Column>
 			</Grid>
 		</div>

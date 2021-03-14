@@ -30,6 +30,14 @@
   padding: 0 !important;
 }
 
+.app-header {
+  padding: 0.3rem 1em !important;
+}
+
+.app-header > div {
+  padding: 0 !important;
+}
+
 .app-content-container {
   margin: 0 !important;
   height: 100%;
@@ -55,6 +63,11 @@
 .app-footer-wrapper {
 }
 
+.app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* content */
 .app-content {

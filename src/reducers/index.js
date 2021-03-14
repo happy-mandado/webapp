@@ -6,16 +6,9 @@ import listsReducer from './lists'
 import draftReducer from './draft'
 import userReducer from './user'
 
+
 const suggestedProductsReducer = (state = new Map(), action) => {
-	switch (action.type) {
-		case types.SET_SUGGESTED_PRODUCTS:
-			return action.suggestedProducts.reduce((accum, suggestedProduct) => {
-				accum.set(suggestedProduct.id, suggestedProduct);
-				return accum;
-			}, new Map())
-		default:
-		  return state
-	}
+	return state
 }
 
 const rootReducer = combineReducers({

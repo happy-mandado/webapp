@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import _ from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
+import _ from 'lodash';
 import {
 	Header, Grid, Card, Label, Button, Dropdown, Message, Modal,
 } from 'semantic-ui-react'
@@ -12,6 +12,7 @@ import {
 import { ProductDraftList } from '../components/product-list'
 import { SuggestionList } from '../components/suggestion-list'
 import { ProductInput } from '../components/product'
+import Loader from '../components/loader'
 import Content from './content'
 import './drafts-section.css'
 
@@ -110,7 +111,7 @@ const DraftListContainer = ({ user, draft, purchasedProducts }) => {
 	);
 };
 
-const DraftsSection = ({ user }) => {
+const DraftsSection = ({ user, isLoading }) => {
 	const draft = useSelector(state => state.draft, _.isEqual)
 	const purchasedProducts = useSelector(
 		state => state.user.purchasedProducts, _.isEqual
@@ -126,6 +127,10 @@ const DraftsSection = ({ user }) => {
 	React.useEffect(() => {
 		loadDraft(dispatch, user.id);
 	}, [user.id]);
+
+	if (isLoading) {
+		return <Loader />
+	}
 
 	return (
 		<div className='app-content'>

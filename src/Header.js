@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Button, Image, Icon, Dropdown, Menu } from 'semantic-ui-react'
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectSection } from './actions'
+import { setSection } from './actions'
 import LocalMenu from './components/menu'
 import './Header.css'
 
@@ -11,7 +11,7 @@ const defaultAvatarImagePath = '/default-avatar.png';
 
 function Header({ user }) {
 	const avatarImagePath = user.picture || defaultAvatarImagePath;
-	const selectedSection = useSelector(store => store.app.section)
+	const selectedSection = useSelector(store => store.app.section.id)
 	const dispatch = useDispatch();
 
 	return (
@@ -23,7 +23,7 @@ function Header({ user }) {
 			>
 				<LocalMenu
 					activeItem={selectedSection}
-					onItemClick={(section) => selectSection(section, dispatch)}
+					onItemClick={(sectionId) => setSection(dispatch, sectionId)}
 				/>
 			</Grid.Column>
 			<Grid.Column mobile={8} tablet={8} computer={8}>
@@ -36,10 +36,14 @@ function Header({ user }) {
 					/>
 					<Dropdown className='link item'>
 						<Dropdown.Menu>
+							<Dropdown.Item disabled>
+								Settings
+							</Dropdown.Item>
+							<Dropdown.Divider />
 							<Dropdown.Item
 								href={process.env.REACT_APP_LOGOUT_URL}
 							>
-								<Icon name='log out' />
+								<Icon name='power' />
 								Log out
 							</Dropdown.Item>
 						</Dropdown.Menu>
