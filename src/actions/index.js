@@ -5,8 +5,13 @@ import * as types from './actionTypes';
 import moment from 'moment';
 
 
-export const selectSection = (section, dispatch) => {
-	dispatch({ type: types.SET_SECTION, section })
+export const setSection = (dispatch, sectionId) => {
+	const section = {
+		id: sectionId,
+		isLoading: true,
+	};
+
+	dispatch({ type: types.SET_APP_SECTION, section })
 }
 
 export const loadUser = async (dispatch, userId) => {
@@ -23,7 +28,8 @@ export const loadUser = async (dispatch, userId) => {
 		return console.log(error);
 	}
 
-	dispatch({ type: types.SET_USER, user })
+	dispatch({ type: types.SET_USER, user });
+	dispatch({ type: types.SET_APP_LOADING_STATE, isLoading: false });
 }
 
 export const loadPurchasedProducts = async (dispatch, userId) => {
@@ -58,6 +64,7 @@ export const loadDraft = async (dispatch, userId) => {
 	}
 
 	dispatch({ type: types.SET_DRAFT, draft: drafts[0] });
+	dispatch({ type: types.SET_APP_SECTION_LOADING_STATE, isLoading: false });
 
 	if (!drafts[0]) {
 		return
@@ -160,24 +167,4 @@ export const loadLists = (dispatch) => {
 
 export const closeList = (dispatch) => {
 	// coming from a draft
-}
-
-export const loadSuggestedProducts = (dispatch) => {
-	const suggestedProducts = [
-		{id: '1', name: 'Papel de bano grande', overdue: '3 days'},
-		{id: '3', name: 'Fresas congeladas', overdue: '1 day'},
-		{id: '4', name: 'Queso paquete grande', overdue: '5 days'},
-		{id: '5', name: 'Papel toalla paquete doble', onTime: true },
-		{id: '11', name: 'Verduras congeladas', onTime: true},
-		{id: '2', name: 'Calabazas', early: '5 days'},
-		{id: '6', name: 'Platanos'},
-		{id: '7', name: 'Hummus'},
-		{id: '8', name: 'Salsa verde casera Herdez'},
-		{id: '9', name: 'Atun en agua'},
-		{id: '10', name: 'Pasta coccion rapida'},
-		{id: '11', name: 'Calabazas', early: '5 days'},
-		{id: '12', name: 'Platanos'},
-	];
-
-	dispatch({ type: types.SET_SUGGESTED_PRODUCTS, suggestedProducts });
 }

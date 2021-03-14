@@ -16,17 +16,17 @@ function Menu({ activeItem, onItemClick }) {
 	return (
 		<div className='menu'>
 			<div
-				className='menu-item product-draft-lists'
-				onClick={() => onItemClick('drafts')}
+				className={`menu-item ${draftsActiveItem}`}
+				onClick={() => onItemClick(DRAFTS_SECTION)}
 			>
-				<i className='inverted tasks icon'/>
+				<i className={`inverted tasks icon ${draftsActiveItem}`}/>
 				{ draftsActiveItem && <Selector />}
 			</div>
 			<div
-				className='menu-item product-lists'
-				onClick={() => onItemClick('lists')}
+				className={`menu-item ${listsActiveItem}`}
+				onClick={() => onItemClick(LISTS_SECTION)}
 			>
-				<i className='inverted shopping cart icon'/>
+				<i className={`inverted shopping cart icon ${listsActiveItem}`}/>
 				{ listsActiveItem && <Selector />}
 			</div>
 		</div>

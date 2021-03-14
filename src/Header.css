@@ -1,20 +1,15 @@
-.app-header {
-  padding: 0.8rem !important;
-}
-
-.app-header > div {
-  padding: 0 !important;
-}
-
 .app-header .hm-avatar {
   float: right;
   border: 0;
   background: none;
   box-shadow: none;
+  min-height: auto !important;
 }
 
 .app-header .ui.image {
-  width: 38px;
+  width: 32px;
+  display: flex;
+  align-items: center;
 }
 
 .app-header .ui.dropdown {
@@ -26,9 +21,13 @@
 }
 
 .hm-avatar .menu {
-  margin: 12px 0 0 -56px !important;
+  margin: 4px 0 0 -56px !important;
 }
 
 .hm-avatar .menu .icon {
   color: black !important;
+}
+
+.hm-avatar .menu .divider {
+  margin: 0 !important;
 }

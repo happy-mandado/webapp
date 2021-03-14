@@ -3,20 +3,25 @@
 }
 
 .menu-item {
-  #-webkit-box-shadow: 0px 5px 10px -6px rgb(43, 42, 42);
-  #-moz-box-shadow: 0px 5px 10px -6px rgb(43, 42, 42);
-  #box-shadow: 0px 5px 10px -6px rgb(43, 42, 42);
-  #border-radius: 20px;
-  width: 40px;
-  height: 40px;
+  /*-webkit-box-shadow: 0px 5px 10px -6px rgb(43, 42, 42);*/
+  /*-moz-box-shadow: 0px 5px 10px -6px rgb(43, 42, 42);*/
+  /*box-shadow: 0px 5px 10px -6px rgb(43, 42, 42);*/
+  /*border-radius: 20px;*/
+  width: 32px;
+  height: 32px;
   cursor: pointer;
   position: relative;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .menu-item.active {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+  background: white;
 }
 
 .menu-item + .menu-item{
@@ -25,30 +30,18 @@
 
 .menu-item .icon {
   color: #EAEAEA !important;
+  margin: 0;
 }
 
-.product-lists {
-  #background: #5565BD;
-  padding: 11px;
-}
-
-.product-draft-lists {
-  #background: #55bdaa;
-  #background: #bd5555;
-  padding: 10px 11px;
-}
-
-.new {
-  background: #E4E4E4;
-  float: right;
+.menu-item .icon.active {
+  color: black !important;
 }
 
 .selector {
-  border-radius: 2px;
-  width: 4px;
-  height: 4px;
-  background: #EAEAEA;
-  position: absolute;
-  left: 18px;
-  bottom: 0;
+ width: 32px;
+ height: 1em;
+ background: white;
+ position: absolute;
+ left: 0px;
+ bottom: -10px;
 }
