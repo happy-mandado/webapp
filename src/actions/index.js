@@ -1,8 +1,6 @@
 import API from '../api';
-import User from '../api/user';
-import Draft from '../api/draft';
 import * as types from './actionTypes';
-import moment from 'moment';
+// import moment from 'moment';
 
 
 export const setSection = (dispatch, sectionId) => {
@@ -154,7 +152,7 @@ export const createDraft = async (dispatch, userId) => {
 };
 
 export const loadLists = (dispatch) => {
-	const api = API.client()
+	// const api = API.client()
 
 	dispatch({ type: types.SET_LISTS, lists: [{
 		isClosed: () => false,

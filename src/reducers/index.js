@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux'
 
-import * as types from '../actions/actionTypes'
 import appReducer from './app'
 import listsReducer from './lists'
 import draftReducer from './draft'

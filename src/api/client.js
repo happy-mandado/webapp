@@ -1,6 +1,5 @@
 import Agent from './agent'
 import Resource from './resource'
-import User from './user'
 
 class Client extends Resource {
 	constructor({ protocol, host, port, token, version }) {

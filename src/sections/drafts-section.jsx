@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash';
-import {
-	Header, Grid, Card, Label, Button, Dropdown, Message, Modal,
-} from 'semantic-ui-react'
+import { Header, Button, Modal } from 'semantic-ui-react'
 
 import {
 	loadDraft, loadPurchasedProducts, addProductToDraft, removeProductFromDraft,

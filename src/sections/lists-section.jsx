@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
-import { Icon, Feed, Header, Message } from 'semantic-ui-react'
+import { Feed, Message } from 'semantic-ui-react'
 
 import { loadLists } from '../actions';
 import './lists-section.css';
@@ -36,7 +36,7 @@ const EmptySectionMessage = () => {
 
 const ListsSection = () => {
 	const lists = useSelector(state => state.lists, _.isEqual);
-	const selectedDraft = useSelector(state => state.selectedDraft);
+	// const selectedDraft = useSelector(state => state.selectedDraft);
 	//const options = Object.values(cities)
 	//	.map(city => ({ key: city.id, value: city.id, text: city.name }));
 	const dispatch = useDispatch();
