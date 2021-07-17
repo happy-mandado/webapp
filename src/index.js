@@ -2,62 +2,47 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import { CookiesProvider } from 'react-cookie';
 import 'fomantic-ui-css/semantic.min.css';
 
 import store from './store';
 import App from './App';
-import Login from './sections/login-section';
-import Secure from './components/secure/Secure';
+import Identity from './Identity';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 
-
 import API from './api';
+
 const config = {
 	api: {
 		host: process.env.REACT_APP_API_HOST,
 		protocol: process.env.REACT_APP_API_PROTOCOL,
 		version: process.env.REACT_APP_API_VERSION,
 		port: process.env.REACT_APP_API_PORT,
+		mock: process.env.REACT_APP_MOCK_USER_ID,
 	},
 }
 
 API.client(config.api)
 
-const index = (props) => {
-	props.redirectTo = null;
-	props.cookieName = process.env.REACT_APP_COOKIE_NAME;
-	props.content = ({ userId }) => {
-
-		if (!userId) {
-			return (
-				<Provider store={store}>
-					<Login loginURL={process.env.REACT_APP_LOGIN_URL}/>
-				</Provider>
-			);
-		}
-
-		return (
-			<Provider store={store}>
-				<App userId={userId}/>
-			</Provider>
-		)
-	};
-
-	return (
-		<CookiesProvider>
-			<Secure {...props}/>
-		</CookiesProvider>
-	);
-};
+const routerRenderer = (props) => (
+	<Provider store={store}>
+		<Identity
+			redirectTo={process.env.REACT_APP_LOGIN_URL}
+			cookieName={process.env.REACT_APP_COOKIE_NAME}
+			mockUserId={process.env.REACT_APP_MOCK_USER_ID}
+			{...props}
+		>
+			<App />
+		</Identity>
+	</Provider>
+);
 
 
 ReactDOM.render(
 	<React.StrictMode>
 		<Router>
-			<Route exact={true} path="/" render={index}/>
-			<Route exact={true} path="/login" render={index}/>
+			<Route exact={true} path="/" render={routerRenderer}/>
+			<Route exact={true} path="/login" render={routerRenderer}/>
 		</Router>
 	</React.StrictMode>,
 	document.getElementById('root')

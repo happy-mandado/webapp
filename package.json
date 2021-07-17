@@ -1,5 +1,5 @@
 {
-  "name": "supermarket",
+  "name": "happy-mandado-webapp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -24,7 +24,7 @@
     "semantic-ui-react": "^2.0.3"
   },
   "scripts": {
-    "start": "HOST=happymandado.local PORT=3000 react-scripts start",
+    "start": "REACT_APP_MOCK_USER_ID=0000 HOST=happymandado.local PORT=3000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
