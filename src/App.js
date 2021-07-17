@@ -1,10 +1,9 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Grid } from 'semantic-ui-react'
 import _ from 'lodash';
 
 import { DRAFTS_SECTION, LISTS_SECTION } from './consts'
-import { loadUser } from './actions';
 import Header from './Header';
 import Footer from './Footer';
 import DraftsSection from './sections/drafts-section';
@@ -13,15 +12,10 @@ import Loader from './components/loader'
 import './App.css'; 
 
 
-function App({ userId }) {
+function App() {
 	const user = useSelector(state => state.user, _.isEqual);
 	const isLoading = useSelector(state => state.app.isLoading);
 	const selectedSection = useSelector(store => store.app.section, _.isEqual)
-	const dispatch = useDispatch();
-
-	React.useEffect(() => {
-			loadUser(dispatch, userId);
-	}, [user.id])
 
 	const isDraftsSectionVisible = !isLoading && selectedSection.id === DRAFTS_SECTION
 	const isListsSectionVisible = !isLoading && selectedSection.id === LISTS_SECTION

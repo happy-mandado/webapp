@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Label, Checkbox, Icon } from 'semantic-ui-react'
+import React from 'react';
+import { Checkbox, Icon } from 'semantic-ui-react'
 
 import './product.css'
 
 
 function Product(props) {
 	const {
-		id, name, selected, onClick, overdue, early, onTime, onRemoval, onSelection,
+		id, name, selected, onClick, onRemoval, onSelection,
 		onUnselection, active,
 	} = props;
 

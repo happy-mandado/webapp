@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
-import { Grid, Header, List, Button } from 'semantic-ui-react'
+import { List } from 'semantic-ui-react'
 // import moment from 'moment';
 
 import Product from '../product'

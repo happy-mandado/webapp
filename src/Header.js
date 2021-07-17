@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Button, Image, Icon, Dropdown, Menu } from 'semantic-ui-react'
+import { Grid, Image, Icon, Dropdown, Menu } from 'semantic-ui-react'
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setSection } from './actions'

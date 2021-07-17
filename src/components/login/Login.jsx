@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './login-section.css'
+import './Login.css'
 
-const Login = ({ loginURL }) => {
+const Login = ({ loginURL = '' }) => {
   return (
     <div className='login-wrapper'>
         <div className='logo'>
