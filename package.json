@@ -9,7 +9,7 @@
     "fomantic-ui-css": "^2.8.4",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "react": "^16.13.1",
     "react-cookie": "^4.0.3",
